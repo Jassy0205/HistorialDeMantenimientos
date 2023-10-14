@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this -> HasMany(Computer::class, 'owner');
     }
+
+    public function observations() : HasMany
+    {
+        return $this -> HasMany(Observation::class, 'owner');
+    }
 }

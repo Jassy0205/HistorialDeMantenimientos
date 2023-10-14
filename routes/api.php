@@ -22,3 +22,7 @@ Route::get('/v1/prueba', [App\Http\Controllers\api\v1\ComputerController::class,
 
 //Ruta para el CRUD de usuario
 Route::apiResource('/v1/users', App\Http\Controllers\api\v1\UserController::class);
+
+//Route::get('/v1/computers', App\Http\Controllers\api\v1\ComputerController::class);
+Route::apiResource('/v1/observations', App\Http\Controllers\api\v1\ObservationController::class);
+//Route::get('/v1/categories', App\Http\Controllers\api\v1\CategoryController::class);

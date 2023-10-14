@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->Call([
             UserSeeder::class,
             ComputerSeeder::class,
+            CategorySeeder::class,
+            ObservationSeeder::class,
         ]);
     }
 }
