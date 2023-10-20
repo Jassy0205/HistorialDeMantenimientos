@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Ruta para el CRUD de usuario
 Route::apiResource('/v1/users', App\Http\Controllers\api\v1\UserController::class);
 
+Route::get('/v1/observations/list', [App\Http\Controllers\api\v1\ObservationController::class, 'list']);
+
 Route::apiResource('/v1/computers', App\Http\Controllers\api\v1\ComputerController::class);
-Route::apiResource('/v1/observations', App\Http\Controllers\api\v1\ObservationController::class);
+Route::apiResource('/v1/computers/{id}/observations', App\Http\Controllers\api\v1\ObservationController::class);
 Route::apiResource('/v1/categories', App\Http\Controllers\api\v1\CategoryController::class);

@@ -14,7 +14,7 @@ class Observation extends Model
         'message',
         'user',
         'category',
-        'machine',
+        'owner',
     ];
 
     public function computer() : BelongsTo
