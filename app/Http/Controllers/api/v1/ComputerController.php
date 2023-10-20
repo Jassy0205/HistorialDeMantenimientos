@@ -20,7 +20,9 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        //
+        $computers = Computer::orderBy('name', 'asc') -> get();
+
+        return response()->json(['data' => $computers], 200); //Código de respuesta
     }
 
     /**
@@ -28,7 +30,9 @@ class ComputerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $computer = Computer::create($request->all());
+
+        return response()->json(['data' => $computer], 200);
     }
 
     /**
@@ -36,7 +40,7 @@ class ComputerController extends Controller
      */
     public function show(Computer $computer)
     {
-        //
+        return response()->json(['data' => $computer], 200);
     }
 
     /**
@@ -44,7 +48,9 @@ class ComputerController extends Controller
      */
     public function update(Request $request, Computer $computer)
     {
-        //
+        $computer -> update($request->all());
+
+        return response()->json(['data' => $computer], 200);
     }
 
     /**
@@ -52,6 +58,8 @@ class ComputerController extends Controller
      */
     public function destroy(Computer $computer)
     {
-        //
+        $computer -> delete();
+
+        return response()->json(null, 204);
     }
 }

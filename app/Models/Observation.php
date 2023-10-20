@@ -12,6 +12,9 @@ class Observation extends Model
 
     protected $fillable = [
         'message',
+        'user',
+        'category',
+        'machine',
     ];
 
     public function computer() : BelongsTo
