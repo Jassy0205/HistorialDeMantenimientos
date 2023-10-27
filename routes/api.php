@@ -28,3 +28,11 @@ Route::get('/v1/observations/list', [App\Http\Controllers\api\v1\ObservationCont
 Route::apiResource('/v1/computers', App\Http\Controllers\api\v1\ComputerController::class);
 Route::apiResource('/v1/computers/{id}/observations', App\Http\Controllers\api\v1\ObservationController::class);
 Route::apiResource('/v1/categories', App\Http\Controllers\api\v1\CategoryController::class);
+
+Route::post('/v1/login', [App\Http\Controllers\api\v1\AuthController::class, 'login'])->name('api.login');
+
+Route::middleware('auth:sanctum')->group(function () {
+        //ruta para el CRUD de usuarios
+        Route::apiResource('/v1/users', App\Http\Controllers\api\v1\UserController::class);
+    }
+); 
