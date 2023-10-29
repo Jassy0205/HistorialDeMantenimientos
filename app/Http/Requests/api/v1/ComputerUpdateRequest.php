@@ -22,7 +22,7 @@ class ComputerUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'max:10|min:4|string', #|alpha:asc
+            'name' => 'unique:computers,name|max:10|min:4|string', #|alpha:asc
             'brand' => 'string|min:2|max:20', #|alpha_dash|alpha_num
             'cpu' => 'string|max:15|min:7',
             'ram' => 'digits:2'

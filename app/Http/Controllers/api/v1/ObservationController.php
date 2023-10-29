@@ -5,6 +5,11 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Observation;
 use Illuminate\Http\Request;
+use App\Http\Requests\api\v1\ObservationStoreRequest;
+use App\Http\Requests\api\v1\ObservationUpdateRequest;
+use App\Http\Resources\api\v1\ObservationResource;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ObservationController extends Controller
 {
@@ -22,19 +27,23 @@ class ObservationController extends Controller
     {
         $observations = Observation::where('machine', '=', $id) -> get();
 
-        return response()->json(['data' => $observations], 200); //Código de respuesta
+        return response()->json(['data' => ObservationResource::collection($observations)], 200); //Código de respuesta
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $id, Request $request)
+    public function store(string $id, ObservationStoreRequest $request)
     {
         $observation = Observation::create($request->all());
+
+        $user = Auth::user();
+        $observation['owner'] = $user["id"];
         $observation['machine'] = $id;
+
         $observation -> save();
 
-        return response()->json(['data' => $observation], 200);
+        return response()->json(['data' => new ObservationResource($observation)], 200);
     }
 
     /**
@@ -45,19 +54,19 @@ class ObservationController extends Controller
         #$observation::where('machine', '=', $id) -> get();
         
         if ($observation['machine'] == $id){
-            return response()->json(['data' => $observation], 200);
+            return response()->json(['data' => new ObservationResource($observation)], 200);
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id, Observation $observation)
+    public function update(ObservationUpdateRequest $request, string $id, Observation $observation)
     {
         if ($observation['machine'] == $id)
         {
             $observation -> update($request->all());
-            return response()->json(['data' => $observation], 200);
+            return response()->json(['data' => new ObservationResource($observation)], 200);
         }else{
             return response()->json(null, 404);
         }

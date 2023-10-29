@@ -7,12 +7,11 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // Validar que el usuari haya provisto los datos necesarios
+        // Validar que el usuario haya provisto los datos necesarios
         // para hacer la autenticación: "email" y "password".
         try {
             $request->validate([
@@ -45,6 +44,13 @@ class AuthController extends Controller
 
         // Enviar el token recién creado al cliente.
         return response()->json(['token' => $token->plainTextToken, 'type' => $tokenType], 200);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([ 'message' => 'Token revoked'], 200); 
     }
 }
 

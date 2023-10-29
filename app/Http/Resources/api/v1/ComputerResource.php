@@ -18,6 +18,7 @@ class ComputerResource extends JsonResource
         return [
             'code' => $this->id,
             'name'  => $this->name, #Concatenación: $this->firstname . ' '. $this->lastname
+            'details'  => $this->cpu . ' - '. $this->ram . ' GB',
             'owner'  => $this->owner,
             'creation_date'  => $this->updated_at 
         ];

@@ -17,8 +17,9 @@ class ObservationResource extends JsonResource
         #return parent::toArray($request);
         return [
             'code' => $this->id,
-            'name'  => $this->name, #Concatenación: $this->firstname . ' '. $this->lastname
+            'message'  => $this->message, #Concatenación: $this->firstname . ' '. $this->lastname
             'owner'  => $this->owner,
+            'category' => $this->category,
             'creation_date'  => $this->updated_at 
         ];
     }

@@ -22,7 +22,7 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:80|min:7|string||alpha:ascii', #|alpha:asc
+            'name' => 'required|max:80|min:7|string||alpha_dash:ascii', #|alpha:asc
             'email' => 'required|email|unique:users,email|min:8|max:255', #|alpha_dash|alpha_num
             'password' => 'required|string|min:8|max:255'
         ];

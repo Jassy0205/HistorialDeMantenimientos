@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\api\v1\ComputerStoreRequest;
 use App\Http\Requests\api\v1\ComputerUpdateRequest;
 use App\Http\Resources\api\v1\ComputerResource;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ComputerController extends Controller
 {
@@ -35,7 +37,12 @@ class ComputerController extends Controller
     {
         $computer = Computer::create($request->all());
 
-        return response()->json(['data' => $computer], 200);
+        $user = Auth::user();
+
+        $computer["owner"] = $user["id"];
+        $computer -> save();
+
+        return response()->json(['data' => new ComputerResource($computer)], 200);
     }
 
     /**
@@ -53,7 +60,7 @@ class ComputerController extends Controller
     {
         $computer -> update($request->all());
 
-        return response()->json(['data' => $computer], 200);
+        return response()->json(['data' => new ComputerResource($computer)], 200);
     }
 
     /**

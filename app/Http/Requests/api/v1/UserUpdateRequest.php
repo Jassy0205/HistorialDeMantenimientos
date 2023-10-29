@@ -4,7 +4,7 @@ namespace App\Http\Requests\api\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ObservationStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,17 @@ class ObservationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => 'required|max:300|min:4|string', #|alpha:asc
-            'category' => 'required|digits:1,2'
+            'name' => 'max:80|min:7|string||alpha_dash:ascii', #|alpha:asc
+            'email' => 'email|unique:users,email|min:8|max:255', #|alpha_dash|alpha_num
+            'password' => 'string|min:8|max:255'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'message.required' => 'El campo mensaje es requerido',
-            'message.min' => 'El campo nombre debe tener una longitud minima de 4 dígitos',
-            'category.required' => 'El campo categoria es requerido',
-            'category.digits' => 'El campo categoria debe tener una longitud minima de 1, y maxima de 2 dígitos'
+            'name.required' => 'El campo nombre es requerido',
+            'name.min' => 'El campo nombre debe tener una longitud minima de 7 dígitos'
         ];
     }
 }

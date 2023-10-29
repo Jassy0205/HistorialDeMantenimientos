@@ -28,7 +28,7 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->all());
 
-        return response()->json(['data' => $category], 200);
+        return response()->json(['data' => new CategoryResource($category)], 200);
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoryController extends Controller
     {
         $category -> update($request->all());
 
-        return response()->json(['data' => $category], 200);
+        return response()->json(['data' => new CategoryResource($category)], 200);
     }
 
     /**
