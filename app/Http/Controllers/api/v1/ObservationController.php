@@ -25,7 +25,8 @@ class ObservationController extends Controller
      */
     public function index(string $id)
     {
-        $observations = Observation::where('machine', '=', $id) -> get();
+        $user = Auth::user();
+        $observations = Observation::where('machine', '=', $id) -> get(); #-> where('owner', '=', $user["id"]) 
 
         return response()->json(['data' => ObservationResource::collection($observations)], 200); //Código de respuesta
     }
@@ -51,9 +52,9 @@ class ObservationController extends Controller
      */
     public function show(string $id, Observation $observation)
     {
-        #$observation::where('machine', '=', $id) -> get();
-        
-        if ($observation['machine'] == $id){
+        $user = Auth::user();
+
+        if ($observation['machine'] == $id){ #and $observation['owner'] == $user["id"]
             return response()->json(['data' => new ObservationResource($observation)], 200);
         }
     }
@@ -63,7 +64,9 @@ class ObservationController extends Controller
      */
     public function update(ObservationUpdateRequest $request, string $id, Observation $observation)
     {
-        if ($observation['machine'] == $id)
+        $user = Auth::user();
+
+        if ($observation['machine'] == $id and $observation['owner'] == $user["id"])
         {
             $observation -> update($request->all());
             return response()->json(['data' => new ObservationResource($observation)], 200);
@@ -77,7 +80,9 @@ class ObservationController extends Controller
      */
     public function destroy(string $id, Observation $observation)
     {
-        if ($observation['machine'] == $id)
+        $user = Auth::user();
+        
+        if ($observation['machine'] == $id and $observation['owner'] == $user["id"])
         {
             $observation -> delete();
             return response()->json(null, 204);
