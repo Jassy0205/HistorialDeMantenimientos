@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
 
-        return response()->json(['data' => UserResource::collection($users)], 200);
+        return response()->json(['data' => UserResource::collection($user)], 200);
     }
 
     /**
@@ -49,7 +49,7 @@ class UserController extends Controller
         $user = Auth::user();
         $user -> update($request->all());
 
-        return response()->json(['data' => UserResource::collection($users)], 200);
+        return response()->json(['data' => UserResource::collection($user)], 200);
     }
 
     /**

@@ -33,7 +33,7 @@ class ObservationStoreRequest extends FormRequest
             'message.required' => 'El campo mensaje es requerido',
             'message.min' => 'El campo nombre debe tener una longitud minima de 4 dígitos',
             'category.required' => 'El campo categoria es requerido',
-            'category.digits' => 'El campo categoria debe tener una longitud minima de 1, y maxima de 2 dígitos'
+            'category.digits' => 'El campo categoria debe tener una longitud de 1 dígito'
         ];
     }
 }
